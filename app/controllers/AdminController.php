@@ -10,6 +10,7 @@ class AdminController extends Controller
     // private $transactionModel;
     // private $sectionModel;
     private $appointmentModel;
+    private $studentListModel;
 
 
     public function __construct($pdo)
@@ -17,7 +18,7 @@ class AdminController extends Controller
         parent::__construct($pdo);
         // $this->notificationModel = $this->loadModel("NotificationModel");
         $this->appointmentModel = $this->loadModel("AppointmentModel");
-        // $this->sectionModel = $this->loadModel('SectionModel');
+        $this->studentListModel = $this->loadModel("StudentListModel");
     }
 
     public function viewAdminDashboard()
@@ -31,7 +32,7 @@ class AdminController extends Controller
 
     /* 
 
-    METHODS  TO VIEW SCHEDULES 
+    METHODS  TO VIEW APPOINTMENTS 
     
     */
 
@@ -47,5 +48,23 @@ class AdminController extends Controller
 
         ];
         $this->renderView('/portals/admin/management/appointments/appointment', $data);
+    }
+
+
+
+    /* 
+
+    METHODS  TO VIEW STUDENTS 
+    
+    */
+    public function viewStudents()
+    {
+        // $students = $this->studentListModel->fetchStudents();
+        $data = [
+            'contentHeaderTitle' => 'Students',
+            'breadcrumbActiveItem' => 'Students',
+            // 'students' => $students
+        ];
+        $this->renderView('/portals/admin/management/students/student', $data);
     }
 }
