@@ -37,9 +37,9 @@
 
                 <!-- Student Management -->
                 <li class="nav-item">
-                    <a href="/admin/schedules" class="nav-link">
+                    <a href="/admin/appointments" class="nav-link">
                         <i class="nav-icon fas fa-calendar-check"></i>
-                        <p>Schedules</p>
+                        <p>Appointments</p>
                     </a>
                 </li>
 

@@ -6,17 +6,17 @@ require_once '../core/Controller.php';
 class AdminController extends Controller
 {
 
-    private $notificationModel;
+    // private $notificationModel;
     // private $transactionModel;
     // private $sectionModel;
-    private $scheduleModel;
+    private $appointmentModel;
 
 
     public function __construct($pdo)
     {
         parent::__construct($pdo);
-        $this->notificationModel = $this->loadModel("NotificationModel");
-        $this->scheduleModel = $this->loadModel("ScheduleModel");
+        // $this->notificationModel = $this->loadModel("NotificationModel");
+        $this->appointmentModel = $this->loadModel("AppointmentModel");
         // $this->sectionModel = $this->loadModel('SectionModel');
     }
 
@@ -35,32 +35,17 @@ class AdminController extends Controller
     
     */
 
-    public function viewSchedules()
+    public function viewAppointments()
     {
 
-        $schedules = $this->scheduleModel->fetchSchedules();
+        $appointments = $this->appointmentModel->fetchAppointments();
         $data = [
-            'contentHeaderTitle' => 'Schedules',
-            'breadcrumbActiveItem' => 'Schedules',
-            'schedules' => $schedules
+            'contentHeaderTitle' => 'Appointments',
+            'breadcrumbActiveItem' => 'Appointments',
+            'appointments' => $appointments
+
+
         ];
-        $this->renderView('/portals/admin/management/schedules/list-of-schedule', $data);
-    }
-
-    /* 
-
-    METHODS  TO VIEW ACTIVIIES
-    */
-
-    public function viewActivities()
-    {
-
-        $schedules = $this->scheduleModel->fetchSchedules();
-        $data = [
-            'contentHeaderTitle' => 'Schedules',
-            'breadcrumbActiveItem' => 'Schedules',
-            'schedules' => $schedules
-        ];
-        $this->renderView('/portals/admin/management/activities/list-of-activity', $data);
+        $this->renderView('/portals/admin/management/appointments/appointment', $data);
     }
 }
