@@ -3,7 +3,7 @@
 require_once '../core/Controller.php';
 
 
-class AdminController extends Controller
+class AdminPortalController extends Controller
 {
 
     // private $notificationModel;
@@ -24,7 +24,7 @@ class AdminController extends Controller
     public function viewAdminDashboard()
     {
         $data = [
-            'contentHeaderTitle' => 'Dashboard | Admin',
+            'contentHeaderTitle' => 'Dashboard',
             'breadcrumbActiveItem' => 'Dashboard',
         ];
         $this->renderView('/portals/admin/admin-dashboard', $data);
@@ -66,5 +66,21 @@ class AdminController extends Controller
             // 'students' => $students
         ];
         $this->renderView('/portals/admin/management/students/student', $data);
+    }
+
+    /* 
+
+    METHODS  TO VIEW COURSES 
+    
+    */
+
+
+    public function viewCourses()
+    {
+        $data = [
+            'contentHeaderTitle' => 'Courses',
+            'breadcrumbActiveItem' => 'Courses',
+        ];
+        $this->renderView('/portals/admin/management/courses/course', $data);
     }
 }

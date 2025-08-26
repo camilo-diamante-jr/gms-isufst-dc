@@ -18,48 +18,44 @@ $this->renderView('/portals/partials/layouts/admin/header', $data);
                 </div>
             </div>
 
-            <!-- Appointments Table -->
             <section class="content">
-                <div class="card elevation-4">
-                    <header class="card-header bg-white">
-                        <div class="d-flex align-items-center py-2 justify-content-between">
-                            <h5 class="mb-0">List of Students</h5>
-                            <div class="div">
-                                <button type="button" class="btn btn-sm btn-outline-primary" id="addStudentBtn">Create</button>
-                                <button type="button" class="btn btn-sm btn-outline-success">Import</button>
+                <div class="table-responsive">
+                    <div class="card elevation-1">
+                        <header class="card-header bg-white">
+                            <div class="d-flex align-items-center py-2 justify-content-between">
+                                <h5 class="mb-0">List of Courses</h5>
+                                <div>
+                                    <a href="#" class="btn btn-primary btn-sm">Create</a>
+                                    <a href="#" class="btn btn-success btn-sm">Import</a>
+                                </div>
                             </div>
-                        </div>
-                    </header>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="studentTable" class="table table-bordered table-striped">
+
+                        </header>
+                        <div class="card-body">
+                            <table id="courseTable" class="table align-middle table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Student Id:</th>
-                                        <th>Name</th>
-                                        <th>Course</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
+                                        <th>Code</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
                                         <th>Actions</th>
                                     </tr>
+                                </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
-                                        <td>John Doe</td>
-                                        <td>Computer Science</td>
-                                        <td>johndoe@example.com</td>
-                                        <td>(123) 456-7890</td>
+                                        <td>BSIT</td>
+                                        <td class="text-uppercase">Bachelor of Science in Information Technology</td>
+                                        <td>Basic concepts of computer science and programming.</td>
                                         <td>
-                                            <a id="editStudent" data-student-id="1" class="text-primary">
+                                            <a href="#" class="text-primary">
                                                 <i class="fas fa-pencil-alt mx-2"></i>
                                             </a>
-                                            <a href="/admin/students/delete/1" class="text-danger">
+                                            <a href="#" class="text-danger">
                                                 <i class="fas fa-archive"></i>
                                             </a>
                                         </td>
                                     </tr>
                                 </tbody>
-                                </thead>
                             </table>
                         </div>
                     </div>
@@ -70,10 +66,9 @@ $this->renderView('/portals/partials/layouts/admin/header', $data);
 </div>
 
 <?php $this->renderView('/portals/partials/layouts/admin/footer'); ?>
-
 <script>
     $(document).ready(function() {
-        $('#studentTable').DataTable({
+        $('#courseTable').DataTable({
             "paging": true,
             "lengthChange": false,
             "searching": true,

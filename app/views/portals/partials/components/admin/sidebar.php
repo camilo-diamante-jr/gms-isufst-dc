@@ -43,13 +43,22 @@
                     </a>
                 </li>
 
-                <!-- Course Management -->
+                <!-- Student Management -->
                 <li class="nav-item">
                     <a href="/admin/students" class="nav-link">
                         <i class="nav-icon fas fa-user-graduate"></i>
                         <p>Students</p>
                     </a>
                 </li>
+
+                <!-- Course Management -->
+                <li class="nav-item">
+                    <a href="/admin/courses" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Courses</p>
+                    </a>
+                </li>
+
 
 
 
