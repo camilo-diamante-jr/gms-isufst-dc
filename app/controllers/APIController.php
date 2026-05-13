@@ -13,7 +13,11 @@ class APIController extends Controller
         $this->scheduleModel = $this->loadModel("ScheduleModel");
     }
 
+<<<<<<< HEAD
     public function getSectionById()
+=======
+    public function get()
+>>>>>>> 01dcdc0d700303676f7ddf847efab3f928d232bc
     {
         require_once 'API/api-section.php';
     }

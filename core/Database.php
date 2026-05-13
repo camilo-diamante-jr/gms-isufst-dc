@@ -7,8 +7,13 @@ function databaseConnection()
     try {
         // Use the constants to create a PDO connection
         $pdo = new PDO(
+<<<<<<< HEAD
             DSN,
             USERNAME,
+=======
+            "mysql:host=" . SERVER_NAME . ";dbname=" . DB_NAME,
+            USER_NAME,
+>>>>>>> 01dcdc0d700303676f7ddf847efab3f928d232bc
             PASSWORD,
             [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
