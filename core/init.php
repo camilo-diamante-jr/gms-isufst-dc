@@ -1,52 +1,67 @@
 <?php
 
-// Define core classes to be included
+/**
+ * 1. DEFENSIVE ERROR HANDLING
+ * Catch Fatal Errors, hide UI messages, and log to developer console.
+ */
+register_shutdown_function(function () {
+    $error = error_get_last();
+    $fatalTypes = [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR];
+
+    if ($error !== NULL && in_array($error['type'], $fatalTypes)) {
+        // Log to server logs
+        error_log("FATAL: {$error['message']} in {$error['file']} on line {$error['line']}");
+
+        // Prepare data for the console
+        $debug = [
+            'message' => $error['message'],
+            'file'    => $error['file'],
+            'line'    => $error['line']
+        ];
+
+        if (ob_get_length()) ob_clean();
+        include __DIR__ . '/../app/views/errors/500.php';
+        exit();
+    }
+});
+
+/**
+ * 2. CORE CLASS LOADER
+ */
 $coreClasses = ['Route', 'App', 'Controller', 'View'];
-
-// Load core class files
 foreach ($coreClasses as $class) {
-    $filePath = __DIR__ . "/{$class}.php";
-    if (!file_exists($filePath)) {
-        die("Core file missing: {$class}.php");
-    }
-    require_once $filePath;
+    $file = __DIR__ . "/{$class}.php";
+    if (!file_exists($file)) trigger_error("Core missing: {$class}", E_USER_ERROR);
+    require_once $file;
 }
 
-// Define the controller directory
-$controllerDir = __DIR__ . '/../app/controllers';
-
-// Ensure the controllers directory exists and load controllers
-if (is_dir($controllerDir)) {
-    foreach (glob("{$controllerDir}/*.php") as $controllerFile) {
-        require_once $controllerFile;
-    }
-} else {
-    die("Controllers directory is missing: {$controllerDir}");
-}
-
-// Define the database configuration file
+/**
+ * 3. DATABASE & HELPERS
+ */
 $databaseFile = __DIR__ . '/Database.php';
-
-// Ensure the database configuration file exists and load it
-if (!file_exists($databaseFile)) {
-    die("Database configuration file is missing.");
-}
+if (!file_exists($databaseFile)) trigger_error("Database config missing", E_USER_ERROR);
 
 $pdo = require_once $databaseFile;
-if (!$pdo instanceof PDO) {
-    die("Failed to initialize database connection.");
-}
+if (!$pdo instanceof PDO) trigger_error("PDO initialization failed", E_USER_ERROR);
 
-// Optional: Load session helper file if it exists
 $sessionHelper = __DIR__ . '/../app/helpers/session.php';
-if (file_exists($sessionHelper)) {
-    require_once $sessionHelper;
-} else {
-    // Uncomment if you want to handle missing session helper
-    die("Session helper file is missing.");
+if (file_exists($sessionHelper)) require_once $sessionHelper;
+
+/**
+ * 4. AUTOMATIC CONTROLLER LOADING
+ */
+$controllerDir = __DIR__ . '/../app/controllers';
+if (is_dir($controllerDir)) {
+    foreach (glob("{$controllerDir}/*.php") as $filename) {
+        require_once $filename;
+    }
 }
 
-// Start a session if not already started
+/**
+ * 5. SESSION START
+ */
 if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.use_only_cookies', 1);
     session_start();
 }
